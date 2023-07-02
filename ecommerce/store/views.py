@@ -11,6 +11,8 @@ from django.views.generic.edit import FormView, UpdateView
 from .forms import CambiarPasswordForm, DireccionForm, LoginForm, RegisterForm
 from .models import Categoria, Cliente, Cupon, Direccion, Pedido, Producto
 from django.db.models import Q
+from django.db import IntegrityError
+
 
 @method_decorator(login_required, name='dispatch')
 class CambiarPasswordView(FormView):
@@ -27,10 +29,11 @@ class CambiarPasswordView(FormView):
         old_password = form.cleaned_data.get('old_password')
         new_password = form.cleaned_data.get('new_password1')
         if not user.check_password(old_password):
+            form.add_error(None, 'Tu contraseña antigua es incorrecta.')
             return self.form_invalid(form)
         user.set_password(new_password)
         user.save()
-        update_session_auth_hash(self.request, user) 
+        update_session_auth_hash(self.request, user)
         messages.success(self.request, 'Tu contraseña ha sido actualizada exitosamente!')
         return super().form_valid(form)
 
@@ -64,8 +67,11 @@ class AgregarDireccionView(TemplateView):
         if form.is_valid():
             direccion = form.save(commit=False)
             direccion.cliente = request.user.cliente
-            direccion.save()
-            return redirect('mi_cuenta')
+            try:
+                direccion.save()
+                return redirect('mi_cuenta')
+            except IntegrityError:
+                form.add_error(None, 'Esta dirección ya existe.')
         return self.render_to_response({'form': form})
 
 @method_decorator(login_required, name='dispatch')
@@ -156,14 +162,18 @@ def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            dni = form.cleaned_data.get('dni')
-            telefono = form.cleaned_data.get('telefono')
-            fecha_nacimiento = form.cleaned_data.get('fecha_nacimiento')
-            pais = form.cleaned_data.get('pais')
-            cliente = Cliente.objects.create(user=user, dni=dni, telefono=telefono, fecha_nacimiento=fecha_nacimiento, pais=pais)
-            cliente.save()
-            return redirect('home')
+            try:
+                user = form.save()
+                dni = form.cleaned_data.get('dni')
+                telefono = form.cleaned_data.get('telefono')
+                fecha_nacimiento = form.cleaned_data.get('fecha_nacimiento')
+                pais = form.cleaned_data.get('pais')
+                cliente = Cliente.objects.create(user=user, dni=dni, telefono=telefono, fecha_nacimiento=fecha_nacimiento, pais=pais)
+                cliente.save()
+                messages.success(request, 'Te has registrado con éxito.')
+                return redirect('home')
+            except IntegrityError:
+                form.add_error(None, 'El nombre de usuario o el correo electrónico ya existen.')
     else:
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
