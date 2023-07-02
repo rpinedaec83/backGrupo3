@@ -1,69 +1,71 @@
 # Backend Grupo 3
 
-Este es el repositorio del backend del grupo 3. El proyecto consiste en una ecommerce de venta de cursos online.
+Este repositorio contiene el código del backend desarrollado por el Grupo 3 para un proyecto de ecommerce de venta de cursos online.
 
 ## Instalación
 
-Para instalar el proyecto, se debe clonar el repositorio y luego instalar las dependencias de python con el siguiente comando en un propio entorno virtual:
+Para instalar el proyecto, sigue estos pasos:
 
-Si no tiene instalado virtualenv, debe instalarlo con el siguiente comando:
+1. Clona este repositorio en tu máquina local.
 
-```bash
-pip install virtualenv
-```
+2. Abre una terminal y navega hasta el directorio raíz del proyecto.
 
-Luego debe crear el entorno virtual con el siguiente comando:
+3. Crea un entorno virtual para el proyecto. Si no tienes instalado `virtualenv`, ejecuta el siguiente comando para instalarlo:
+   ```bash
+   pip install virtualenv
+   ```
 
-Linux o Mac:
-```bash
-virtualenv venv
-```
+   Luego, crea el entorno virtual utilizando uno de los siguientes comandos según tu sistema operativo:
 
-Windows:
-```bash
-python -m venv venv
-```
+   Linux/Mac:
+   ```bash
+   virtualenv venv
+   ```
 
-Luego debe activar el entorno virtual con el siguiente comando:
+   Windows:
+   ```bash
+   python -m venv venv
+   ```
 
-Linux o Mac:
-```bash
-source venv/bin/activate
-```
+4. Activa el entorno virtual:
+   - En Linux/Mac, ejecuta:
+     ```bash
+     source venv/bin/activate
+     ```
+   - En Windows, ejecuta:
+     ```bash
+     venv\Scripts\activate
+     ```
 
-Windows:
-```bash
-venv\Scripts\activate
-```
+5. Instala las dependencias del proyecto ejecutando el siguiente comando:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Luego debe instalar las dependencias con el siguiente comando:
+6. Configura la conexión a la base de datos en el archivo `settings.py`. Abre el archivo y busca la sección `DATABASES`. Reemplaza los valores en blanco con la información de tu base de datos PostgreSQL.
 
-```bash
-pip install -r requirements.txt
-```
+7. Crea la base de datos en PostgreSQL con el nombre especificado en la configuración.
 
-Despues debe moverse a la carpeta "ecommerce" con el siguiente comando:
-
-```bash
-cd ecommerce
-```
-
-La base de datos utilizada es PostgreSQL, por lo que se debe crear una base de datos con el nombre "ecommerce" y luego correr las migraciones con el siguiente comando:
-
-```bash
-python manage.py migrate
-```
+8. Ejecuta las migraciones para crear las tablas necesarias en la base de datos:
+   ```bash
+   python manage.py migrate
+   ```
 
 ## Uso
 
-Luego debe crearse un superusuario con el siguiente comando:
+Una vez completada la instalación, sigue estos pasos para ejecutar el proyecto:
 
-```bash
-python manage.py createsuperuser
-```
+1. Crea un superusuario para acceder al panel de administración:
+   ```bash
+   python manage.py createsuperuser
+   ```
 
-Para correr el proyecto, se debe ejecutar el siguiente comando:
+2. Inicia el servidor de desarrollo con el siguiente comando:
+   ```bash
+   python manage.py runserver
+   ```
 
-```bash
-python manage.py runserver
-```
+3. Abre tu navegador web y accede a `http://localhost:8000/` para ver la aplicación en funcionamiento.
+
+4. Para acceder al panel de administración, visita `http://localhost:8000/admin` e inicia sesión con las credenciales del superusuario que creaste.
+
