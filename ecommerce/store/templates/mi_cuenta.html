@@ -70,6 +70,8 @@
         {% for cupon in cupones %}
             <p>{{ cupon.nombre }} - Descuento: {{ cupon.descuento }}%</p>
         {% endfor %}
+        <!-- Add this line in your navbar -->
+    <a href="{% url 'cambiar_contraseña' %}">Cambiar Contraseña</a>
     </main>
 
     <!-- Footer -->

@@ -1,24 +1,41 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import DeleteView, TemplateView
-
-from .forms import DireccionForm, LoginForm, RegisterForm
-from .models import Cliente, Cupon, Direccion, Pedido
-from django.urls import reverse_lazy
-from django.views.generic.edit import UpdateView
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.shortcuts import get_object_or_404, render
-from .models import Direccion
-from .forms import DireccionForm
-from .models import Producto, Categoria
+from django.views.generic.edit import FormView, UpdateView
+from .forms import CambiarPasswordForm, DireccionForm, LoginForm, RegisterForm
+from .models import Categoria, Cliente, Cupon, Direccion, Pedido, Producto
 from django.db.models import Q
+
+@method_decorator(login_required, name='dispatch')
+class CambiarPasswordView(FormView):
+    template_name = 'cambiar_contraseña.html'
+    form_class = CambiarPasswordForm
+
+    def get_form_kwargs(self):
+        kwargs = super(CambiarPasswordView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user  
+        return kwargs
+
+    def form_valid(self, form):
+        user = self.request.user
+        old_password = form.cleaned_data.get('old_password')
+        new_password = form.cleaned_data.get('new_password1')
+        if not user.check_password(old_password):
+            return self.form_invalid(form)
+        user.set_password(new_password)
+        user.save()
+        update_session_auth_hash(self.request, user) 
+        messages.success(self.request, 'Tu contraseña ha sido actualizada exitosamente!')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('mi_cuenta')
 
 
 @method_decorator(login_required, name='dispatch')

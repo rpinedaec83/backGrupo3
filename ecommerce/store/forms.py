@@ -6,6 +6,12 @@ from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
+from django.contrib.auth.forms import PasswordChangeForm
+
+class CambiarPasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
 class RegisterForm(UserCreationForm):
     dni = forms.CharField(max_length=8)
