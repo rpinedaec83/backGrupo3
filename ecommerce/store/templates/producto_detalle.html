@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <main class="container my-4">
+        <div class="card">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{{ producto.imagen }}" class="card-img" alt="{{ producto.nombre }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion }}</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Categoria: <strong>{{ producto.categoria.nombre }}</strong></li>
+                            <li class="list-group-item">Precio: <strong>{{ producto.precio }}</strong></li>
+                            <li class="list-group-item">Stock: <strong>{{ producto.stock }}</strong></li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link">Comprar ahora</a>
+                            <a href="#" class="card-link">Agregar al carrito</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Required for Bootstrap's JavaScript plugins -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
