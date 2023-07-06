@@ -49,6 +49,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_countries',
     'rest_framework.authtoken',
+
+    'corsheaders',
+    'djoser',
+    'social_django',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'apps.cart',
+    'apps.product',
+    'apps.category',
+    
 ]
 
 MIDDLEWARE = [
