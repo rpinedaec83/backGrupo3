@@ -42,13 +42,13 @@ Luego debe instalar las dependencias con el siguiente comando:
 pip install -r requirements.txt
 ```
 
-Despues debe moverse a la carpeta "ecommerce" con el siguiente comando:
+Despues debe moverse a la carpeta "pachacursos" con el siguiente comando:
 
 ```bash
-cd ecommerce
+cd pachacursos
 ```
 
-La base de datos utilizada es PostgreSQL, por lo que se debe crear una base de datos con el nombre "ecommerce" y luego correr las migraciones con el siguiente comando:
+La base de datos utilizada es PostgreSQL, por lo que se debe crear una base de datos con el nombre "pachacursos" y luego correr las migraciones con el siguiente comando:
 
 ```bash
 python manage.py migrate
