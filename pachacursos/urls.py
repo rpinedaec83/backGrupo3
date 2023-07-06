@@ -42,7 +42,7 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('', include(router.urls)),
     path('register/', views.UserView.as_view(), name='register'),
-    path('api/category/', include('apps.category.urls')),
-    path('api/product/', include('apps.product.urls')),
-    path('api/cart/', include('apps.cart.urls')),
+    path('api/category/', include('category.urls')),
+    path('api/product/', include('product.urls')),
+    path('api/cart/', include('cart.urls')),
 ]

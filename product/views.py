@@ -2,9 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
 
-from apps.product.models import Product
-from apps.product.serializers import ProductSerializer
-from apps.category.models import Category
+from product.models import Product
+from product.serializers import ProductSerializer
+from category.models import Category
 
 from django.db.models import Q
 

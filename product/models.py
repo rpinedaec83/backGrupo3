@@ -1,9 +1,9 @@
 from django.db import models
 from datetime import datetime
-from apps.category.models import Category
+from category.models import Category
 
 from django.conf import settings
-domain = settings.DOMAIN
+
 
 class Product(models.Model):
     name = models.CharField(max_length=255)

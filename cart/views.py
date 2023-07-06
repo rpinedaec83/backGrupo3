@@ -4,8 +4,8 @@ from rest_framework import status
 
 from .models import Cart, CartItem
 
-from apps.product.models import Product
-from apps.product.serializers import ProductSerializer
+from product.models import Product
+from product.serializers import ProductSerializer
 
 
 class GetItemsView(APIView):
