@@ -50,36 +50,25 @@ class EstadoPedido(models.Model):
     def __str__(self):
         return str(self.descripcion)
 
-
-class Cliente(models.Model):
+class Direccion(models.Model):
     """
-    Modelo de Cliente
+    Modelo de Direccion de Cliente
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dni = models.CharField(max_length=8, unique=True)
     telefono = models.CharField(max_length=15, blank=True, null=True)
     fecha_nacimiento = models.DateField(blank=True, null=True)
-    pais = models.CharField(max_length=100, blank=True, null=True)
-
-    def __str__(self):
-        return str(self.user.email)
-
-
-class Direccion(models.Model):
-    """
-    Modelo de Direccion de Cliente
-    """
-    cliente = models.ForeignKey(
-        Cliente, related_name="direcciones", on_delete=models.CASCADE)
     pais = models.CharField(max_length=200)
     ciudad = models.CharField(max_length=200)
     distrito = models.CharField(max_length=200)
     codigo_postal = models.CharField(max_length=10)
     avenida_calle_jiron = models.CharField(max_length=200)
     numero_calle = models.CharField(max_length=10)
-    dpto_interior_piso_lote_bloque = models.CharField(
-        max_length=200, blank=True)
+    dpto_interior_piso_lote_bloque = models.CharField(max_length=200, blank=True)
     numero_contacto = models.CharField(max_length=20)
+
+    def __str__(self):
+        return str(self.user.email)
 
 
 class Producto(models.Model):
@@ -103,18 +92,18 @@ class Pedido(models.Model):
     """
     Modelo de Pedido
     """
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateTimeField(auto_now_add=True)
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
     igv = models.DecimalField(max_digits=10, decimal_places=2)
     total = models.DecimalField(max_digits=10, decimal_places=2)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE)
     estado = models.ForeignKey(EstadoPedido, on_delete=models.CASCADE)
     cupones = models.ManyToManyField(Cupon, blank=True)
     notas = models.TextField(blank=True)
 
     def __str__(self):
-        return str(self.id)  # pylint: disable=no-member
+        return str(self.id)
 
 
 class DetallePedido(models.Model):
@@ -145,4 +134,4 @@ class Pago(models.Model):
     estado = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.id)  # pylint: disable=no-member
+        return str(self.id)
