@@ -133,9 +133,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-DEFAULT_FILE_STORAGE = 'hackatonFinal.azure_storage.AzureMediaStorage'
+DEFAULT_FILE_STORAGE = 'pachacursos.azure_storage.AzureMediaStorage'
 
-STATICFILES_STORAGE = 'hackatonFinal.azure_storage.AzureStaticStorage'
+STATICFILES_STORAGE = 'pachacursos.azure_storage.AzureStaticStorage'
 
 
 
