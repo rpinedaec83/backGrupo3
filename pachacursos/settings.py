@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'cart',
     'product',
     'category',
-    
+    'pagos',
 ]
 
 MIDDLEWARE = [
@@ -191,3 +191,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+
+CULQI_API_KEY = '*'
+CULQI_PUBLIC_KEY = '*'
